@@ -64,6 +64,9 @@ class View:
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
         # TODO
+        self.mostra = ft.Button("Mostra", onclick=self.controller.mostra)
+
+        self.cerca = ft.Button("Cerca", onclick=self.controller.cerca)
 
         # --- LAYOUT ---
         self.page.add(
@@ -83,7 +86,9 @@ class View:
 
             # Sezione 3
             # TODO
+            ft.Row(spacing=20,controls=[ft.Text("Strumenti",size=20),self.mostra]),
 
+            ft.Divider(),
             # Sezione 4
             # TODO
         )

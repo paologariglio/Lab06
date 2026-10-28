@@ -29,3 +29,23 @@ class Controller:
 
     # Altre Funzioni Event Handler
     # TODO
+    def mostra(self, e):
+        strumenti = self._model.get_strumenti()
+        self._view.lista_strumenti.controls.clear()
+
+        if strumenti is None:
+            self._view.show_alert(f"Errore: impossibile collegarsi al database")
+            return
+
+        if len(strumenti) == 0:
+            self._view.show_alert(f"Errore: database strumenti vuoto")
+
+        else:
+            for s in strumenti:
+                self._view.lista_strumenti.controls.append(ft.Text(str(s)))
+
+        self._view.update()
+
+    def cerca(self,e):
+        tipo_cercato = self._view.input_tipo_strumento.value.strip()
+

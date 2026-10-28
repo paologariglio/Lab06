@@ -36,6 +36,30 @@ class DepositoStrumenti:
             :return: una lista con tutti gli strumenti presenti oppure None
         """
         # TODO
+        try:
+            cnx = get_connection()
+            strumenti = []
+            cursore = cnx.cursor(dictionary=True) #è il cursore che scorre nel database
+            query = f"""SELECT * 
+                        FROM strumento"""
+            cursore.execute(query)
+
+            for riga in cursore.fetchall():
+                s = Strumento(riga[0],riga[1],riga[2],riga[3],riga[4],riga[5])
+                strumenti.append(s)
+
+            return strumenti
+
+        except Exception as e:
+            print(f"Errore database: {e}")
+            return None
+
+        finally:
+            if cnx and cnx.is_connected():
+                cursore.close()
+                cnx.close()
+
+
 
     def cerca_strumenti_per_tipo(self, tipo) -> list[Strumento] | None:
         """
@@ -44,3 +68,26 @@ class DepositoStrumenti:
             :return: una lista con tutti gli strumenti del tipo indicato oppure None
         """
         # TODO
+        try:
+            cnx = get_connection()
+            strumenti = []
+            cursore = cnx.cursor(dictionary=True)  # è il cursore che scorre nel database
+            query = f"""SELECT * 
+                        FROM strumento
+                        WHERE tipo = %s"""
+            cursore.execute(query,(tipo,)) #prende il tipo che hai dato in input ed esegue la query in base a quello
+
+            for riga in cursore.fetchall():
+                s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
+                strumenti.append(s)
+
+                return strumenti
+
+        except Exception as e:
+            print(f"Errore database: {e}")
+            return None
+
+        finally:
+            if cnx and cnx.is_connected():
+                cursore.close()
+                cnx.close()
