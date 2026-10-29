@@ -63,7 +63,7 @@ class Controller:
 
         if strumenti is None:
             self._view.show_alert(f"Errore: impossibile collegarsi al database")
-
+            return
         if len(strumenti) == 0:
             self._view.show_alert(f"Errore: il tipo {tipo_cercato} non esiste")
 
