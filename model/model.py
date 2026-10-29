@@ -39,7 +39,7 @@ class DepositoStrumenti:
         try:
             cnx = get_connection()
             strumenti = []
-            cursore = cnx.cursor(dictionary=True) #è il cursore che scorre nel database
+            cursore = cnx.cursor() #è il cursore che scorre nel database
             query = f"""SELECT * 
                         FROM strumento"""
             cursore.execute(query)
@@ -71,7 +71,7 @@ class DepositoStrumenti:
         try:
             cnx = get_connection()
             strumenti = []
-            cursore = cnx.cursor(dictionary=True)  # è il cursore che scorre nel database
+            cursore = cnx.cursor()  # è il cursore che scorre nel database
             query = f"""SELECT * 
                         FROM strumento
                         WHERE tipo = %s"""
@@ -81,7 +81,7 @@ class DepositoStrumenti:
                 s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
                 strumenti.append(s)
 
-                return strumenti
+            return strumenti
 
         except Exception as e:
             print(f"Errore database: {e}")
