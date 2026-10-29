@@ -49,3 +49,18 @@ class Controller:
     def cerca(self,e):
         tipo_cercato = self._view.input_tipo_strumento.value.strip()
 
+        if not tipo_cercato:
+            self._view.show_alert(f"Errore: inserisci un tipo da cercare")
+
+        if tipo_cercato.isdigit():
+            self._view.show_alert(f"Errore: tipo non valido")
+
+        strumenti = self._model.cerca_strumenti_per_tipo(tipo_cercato)
+        self._view.lista_strumenti_ricerca.controls.clear()
+
+        if strumenti is None:
+            self._view.show_alert(f"Errore: impossibile collegarsi al database")
+
+        if len(strumenti) == 0:
+            self._view.show_alert(f"Errore: ")
+
